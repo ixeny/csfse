@@ -6,11 +6,81 @@ from subprocess import call
 
 def evaluer(event):
 	matr=matricule.get()
-	s="\\documentclass[french,12pt]{article}\\usepackage[T1]{fontenc}\\usepackage[utf8]{inputenc}\\usepackage{lmodern}\\usepackage[a4paper]{geometry}\\usepackage[arabic,francais]{babel}\\usepackage{graphicx}\\geometry{vmargin=1cm,hmargin=1cm}\\begin{document}\\pagestyle{empty}\\begin{center}\\begin{otherlanguage}{arabic}الجمهورية الجزائرية الديمقراطية الشعبية\\\\\\end{otherlanguage}République Algérienne Démocratique et Populaire\\\\\\begin{otherlanguage}{arabic}وزارة التعليم العالي والبحث العلمي\\\\\\end{otherlanguage}Ministère de l'Enseignement Supérieur et de la Recherche Scientifique\\\\\includegraphics[width=4.8cm]{Logo_Univ_Bejaia}\\\\\\textbf{CERTIFICAT DE SCOLARITÉ}\\\\\\vline\\end{center}Le Doyen de la Faculté des \\textbf{Sciences Éxactes}\\\\certifie que l'étudiant(e):\\\\Nom: \\textbf{"+nom.get()+"}\\\\Prénom : \\textbf{"+prenom.get()+"}\\\\Né(e) le : \\textbf{"+date_nais.get()+"}   à : \\textbf{"+ville_nais.get()+"}\\\\est inscrit(e)  en \\textbf{Deuxième année.}\\\\Matricule : \\textbf{"+matr+"}\\\\Domaine : \\textbf{Mathématiques et Informatique}\\\\Filière : \\textbf{Informatique}\\\\Spécialité : \\textbf{Génie Logiciel}\\\\Diplôme préparé : \\textbf{Master}\\\\\\textbf{Année universitaire : 2015/2016}\\\\\\begin{flushright}Béjaia, le 25/11/2015\\\\P/Le Doyen\\end{flushright}\\textbf{\\underline{NB:}} Ce document n'est délivre qu'en un seul exemplaire, il appartient à l'étudiant (e) d'en faire des copies certifiées conformes.\\end{document}"
+	s="\\PassOptionsToPackage{arabic,francais}{babel}\
+\\documentclass[a4paper,12pt]{article}\
+\\usepackage{tikz}\
+\\usepackage{pst-barcode}\
+\\usepackage{geometry}\
+\\geometry{letterpaper}\
+\\usepackage{setspace}\
+\\usepackage{fontspec}\
+\\usepackage{tabto}\
+\\usepackage{polyglossia}\
+\\setmainlanguage{francais}\
+\\setotherlanguage{arabic}\
+\\newfontfamily\\arabicfont[Script = Arabic]{DejaVu Sans Mono}\
+\\setotherlanguage{arabic}\
+\\usepackage{lmodern}\
+\\usepackage{graphicx}\
+\\geometry{vmargin=0cm,hmargin=2cm}\
+\\begin{document}\
+\\begin{tikzpicture}[remember picture,overlay]\
+\\draw[very thick]\
+([yshift=-25pt,xshift=25pt]current page.north west)--\
+([yshift=-25pt,xshift=-25pt]current page.north east)--\
+([yshift=25pt,xshift=-25pt]current page.south east)--\
+([yshift=25pt,xshift=25pt]current page.south west)--cycle;\
+\end{tikzpicture}\
+\\pagestyle{empty}\
+\\begin{center}\
+\\begin{otherlanguage}{arabic}الجمهورية الجزائرية الديمقراطية الشعبية\\\\\
+\\end{otherlanguage}République Algérienne Démocratique et Populaire\\\\\
+\\begin{otherlanguage}{arabic}وزارة التعليم العالي والبحث العلمي\\\\\
+\\end{otherlanguage}\
+Ministère de l'Enseignement Supérieur et de la Recherche Scientifique\\\\\
+\\includegraphics[width=4.8cm]{Logo_Univ_Bejaia}\\\\\
+\\textbf{CERTIFICAT DE SCOLARITÉ}\\\\\
+\\vline\
+\\end{center}Le Doyen de la Faculté des \\textbf{Sciences Éxactes}\\\\\
+\n\\\\%\n\
+certifie que l'étudiant(e):\\\\\
+\n\\\\%\n\
+Nom: \\textbf{"+nom.get()+"}\\\\\
+\n\\\\%\n\
+Prénom : \\textbf{"+prenom.get()+"}\\\\\
+\n\\\\%\n\
+Né(e) le : \\textbf{"+date_nais.get()+"}   à : \\textbf{"+ville_nais.get()+"}\\\\\
+\n\\\\%\n\
+est inscrit(e)  en \\textbf{Deuxième année.}\\\\\
+\n\\\\%\n\
+Matricule : \\textbf{"+matr+"}\\\\\
+\n\\\\%\n\
+Domaine : \\textbf{Mathématiques et Informatique}\\\\\
+\n\\\\%\n\
+Filière : \\textbf{Informatique}\\\\\
+\n\\\\%\n\
+Spécialité : \\textbf{Génie Logiciel}\\\\\
+\n\\\\%\n\
+Diplôme préparé : \\textbf{Master}\\\\\
+\n\\\\%\n\
+\\textbf{Année universitaire : 2015/2016}\
+\n\\\\%\n\
+\\begin{flushright}\
+\\begin{pspicture}(4,0in)\
+\\psbarcode{"+matr+"}{includecheck height=0.4}{code128}\
+\\end{pspicture}\\\
+\n\\\\%\n\
+Béjaia, le 25/11/2015\\\\P/Le Doyen\
+\\end{flushright}\
+\\vfill \
+\\scriptsize\\textbf{\\underline{NB:}} Ce document n'est delivré qu'en un seul exemplaire, \
+il appartient à l'étudiant (e) d'en faire des copies certifiées conformes.\
+\\vspace{1.5cm}\
+\\end{document}"
 	certificat = open(r''+matr+'.tex' , 'w')
 	certificat.write(s)
 	certificat.close()
-	call(["pdflatex", matr+".tex"])
+	call(["xelatex", matr+".tex"])
 	call(["evince", matr+".pdf"])
 
 fenetre=Tk()
@@ -50,9 +120,3 @@ generer.grid(row=6,column=0)
 quitter.grid(row=6,column=1)
 
 fenetre.mainloop()
-
-
-
-
-
-
