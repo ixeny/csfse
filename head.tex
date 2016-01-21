@@ -1,0 +1,30 @@
+\PassOptionsToPackage{arabic,francais}{babel}
+\documentclass[a4paper,12pt]{article}
+\usepackage{tikz}
+\usepackage{pst-barcode}
+\usepackage{geometry}
+\geometry{letterpaper}
+\usepackage{setspace}
+\usepackage{fontspec}
+\usepackage{tabto}
+\usepackage{polyglossia}
+\setmainlanguage{francais}
+\setotherlanguage{arabic}
+\newfontfamily
+\arabicfont[Script = Arabic]{DejaVu Sans Mono}
+\setotherlanguage{arabic}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\geometry{vmargin=0cm,hmargin=2cm}
+\begin{document}
+\begin{tikzpicture}[remember picture,overlay]
+\draw[very thick]([yshift=-25pt,xshift=25pt]current page.north west)--([yshift=-25pt,xshift=-25pt]current page.north east)--([yshift=25pt,xshift=-25pt]current page.south east)--([yshift=25pt,xshift=25pt]current page.south west)--cycle;
+\end{tikzpicture}\pagestyle{empty}
+\begin{center}
+\begin{otherlanguage}{arabic}الجمهورية الجزائرية الديمقراطية الشعبية\\
+\end{otherlanguage}République Algérienne Démocratique et Populaire\\
+\begin{otherlanguage}{arabic}وزارة التعليم العالي والبحث العلمي\\
+\end{otherlanguage}Ministère de l'Enseignement Supérieur et de la Recherche Scientifique\\
+\includegraphics[width=4.8cm]{Logo_Univ_Bejaia}\\\textbf{CERTIFICAT DE SCOLARITÉ}\\
+\vline
+\end{center}

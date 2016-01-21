@@ -6,42 +6,9 @@ from subprocess import call
 
 def evaluer(event):
 	matr=matricule.get()
-	s="\\PassOptionsToPackage{arabic,francais}{babel}\
-\\documentclass[a4paper,12pt]{article}\
-\\usepackage{tikz}\
-\\usepackage{pst-barcode}\
-\\usepackage{geometry}\
-\\geometry{letterpaper}\
-\\usepackage{setspace}\
-\\usepackage{fontspec}\
-\\usepackage{tabto}\
-\\usepackage{polyglossia}\
-\\setmainlanguage{francais}\
-\\setotherlanguage{arabic}\
-\\newfontfamily\\arabicfont[Script = Arabic]{DejaVu Sans Mono}\
-\\setotherlanguage{arabic}\
-\\usepackage{lmodern}\
-\\usepackage{graphicx}\
-\\geometry{vmargin=0cm,hmargin=2cm}\
-\\begin{document}\
-\\begin{tikzpicture}[remember picture,overlay]\
-\\draw[very thick]\
-([yshift=-25pt,xshift=25pt]current page.north west)--\
-([yshift=-25pt,xshift=-25pt]current page.north east)--\
-([yshift=25pt,xshift=-25pt]current page.south east)--\
-([yshift=25pt,xshift=25pt]current page.south west)--cycle;\
-\end{tikzpicture}\
-\\pagestyle{empty}\
-\\begin{center}\
-\\begin{otherlanguage}{arabic}الجمهورية الجزائرية الديمقراطية الشعبية\\\\\
-\\end{otherlanguage}République Algérienne Démocratique et Populaire\\\\\
-\\begin{otherlanguage}{arabic}وزارة التعليم العالي والبحث العلمي\\\\\
-\\end{otherlanguage}\
-Ministère de l'Enseignement Supérieur et de la Recherche Scientifique\\\\\
-\\includegraphics[width=4.8cm]{Logo_Univ_Bejaia}\\\\\
-\\textbf{CERTIFICAT DE SCOLARITÉ}\\\\\
-\\vline\
-\\end{center}Le Doyen de la Faculté des \\textbf{Sciences Éxactes}\\\\\
+	head=open(r'head.tex' , 'r')
+	foot=open(r'foot.tex' , 'r')
+	s=head.read()+"Le Doyen de la Faculté des \\textbf{Sciences Exactes}\\\\\
 \n\\\\%\n\
 certifie que l'étudiant(e):\\\\\
 \n\\\\%\n\
@@ -71,14 +38,11 @@ Diplôme préparé : \\textbf{Master}\\\\\
 \\end{pspicture}\\\
 \n\\\\%\n\
 Béjaia, le 25/11/2015\\\\P/Le Doyen\
-\\end{flushright}\
-\\vfill \
-\\scriptsize\\textbf{\\underline{NB:}} Ce document n'est delivré qu'en un seul exemplaire, \
-il appartient à l'étudiant (e) d'en faire des copies certifiées conformes.\
-\\vspace{1.5cm}\
-\\end{document}"
+\\end{flushright}"+foot.read()
 	certificat = open(r''+matr+'.tex' , 'w')
 	certificat.write(s)
+	head.close()
+	foot.close()
 	certificat.close()
 	call(["xelatex", matr+".tex"])
 	call(["evince", matr+".pdf"])
