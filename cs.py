@@ -39,10 +39,10 @@ Diplôme préparé : \\textbf{Master}\\\\\
 \n\\\\%\n\
 Béjaia, le 25/11/2015\\\\P/Le Doyen\
 \\end{flushright}"+foot.read()
-	certificat = open(r''+matr+'.tex' , 'w')
-	certificat.write(s)
 	head.close()
 	foot.close()
+	certificat = open(r''+matr+'.tex' , 'w')
+	certificat.write(s)
 	certificat.close()
 	call(["xelatex", matr+".tex"])
 	call(["evince", matr+".pdf"])
