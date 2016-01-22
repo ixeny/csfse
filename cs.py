@@ -4,7 +4,7 @@
 from tkinter import*
 from subprocess import call
 
-def evaluer(event):
+def generate(event):
 	matr=matricule.get()
 	head=open(r'head.tex' , 'r')
 	foot=open(r'foot.tex' , 'r')
@@ -47,14 +47,14 @@ Béjaia, le 25/11/2015\\\\P/Le Doyen\
 	call(["xelatex", matr+".tex"])
 	call(["evince", matr+".pdf"])
 
-fenetre=Tk()
-fenetre.pack_propagate(0)
-nom=Entry(fenetre, background='white')
-prenom=Entry(fenetre, background='white')
-date_nais=Entry(fenetre, background='white')
-ville_nais=Entry(fenetre, background='white')
-matricule=Entry(fenetre, background='white')
-matricule.bind("<Return>",evaluer)
+window=Tk()
+window.pack_propagate(0)
+nom=Entry(window, background='white')
+prenom=Entry(window, background='white')
+date_nais=Entry(window, background='white')
+ville_nais=Entry(window, background='white')
+matricule=Entry(window, background='white')
+matricule.bind("<Return>",generate)
 
 certificat = Label(text = 'Certificats de Scolarité')
 certificat.grid(row=0)
@@ -77,10 +77,10 @@ date_nais.grid(row=3,column=1)
 ville_nais.grid(row=4,column=1)
 matricule.grid(row=5,column=1)
 
-generer=Button(fenetre, text="Générer", fg="black")
-generer.bind("<Button-1>",evaluer)
-quitter=Button(fenetre, text="Quitter", fg="red",command=fenetre.destroy)
+generer=Button(window, text="Générer", fg="black")
+generer.bind("<Button-1>",generate)
+quit=Button(window, text="window", fg="red",command=window.destroy)
 generer.grid(row=6,column=0)
-quitter.grid(row=6,column=1)
+quit.grid(row=6,column=1)
 
-fenetre.mainloop()
+window.mainloop()
