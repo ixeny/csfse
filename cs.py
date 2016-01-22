@@ -79,7 +79,7 @@ matricule.grid(row=5,column=1)
 
 generer=Button(window, text="Générer", fg="black")
 generer.bind("<Button-1>",generate)
-quit=Button(window, text="window", fg="red",command=window.destroy)
+quit=Button(window, text="Quitter", fg="red",command=window.destroy)
 generer.grid(row=6,column=0)
 quit.grid(row=6,column=1)
 
