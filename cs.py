@@ -5,18 +5,18 @@ from tkinter import*
 from subprocess import call
 
 def generate(event):
-	matr=matricule.get()
+	matr=matricule.get().upper()
 	head=open(r'head.tex' , 'r')
 	foot=open(r'foot.tex' , 'r')
 	s=head.read()+"Le Doyen de la Faculté des \\textbf{Sciences Exactes}\\\\\
 \n\\\\%\n\
 certifie que l'étudiant(e):\\\\\
 \n\\\\%\n\
-Nom: \\textbf{"+nom.get()+"}\\\\\
+Nom: \\textbf{"+nom.get().upper()+"}\\\\\
 \n\\\\%\n\
-Prénom : \\textbf{"+prenom.get()+"}\\\\\
+Prénom : \\textbf{"+prenom.get().capitalize()+"}\\\\\
 \n\\\\%\n\
-Né(e) le : \\textbf{"+date_nais.get()+"}   à : \\textbf{"+ville_nais.get()+"}\\\\\
+Né(e) le : \\textbf{"+date_nais.get()+"}   à : \\textbf{"+ville_nais.get().capitalize()+"}\\\\\
 \n\\\\%\n\
 est inscrit(e)  en \\textbf{Deuxième année.}\\\\\
 \n\\\\%\n\
